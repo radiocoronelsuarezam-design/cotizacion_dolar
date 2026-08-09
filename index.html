@@ -1,0 +1,262 @@
+<!-- CONTENEDOR PRINCIPAL -->
+<div id="mi-widget-cotizaciones">
+    <div class="tarjeta-financiera">
+        <div class="header-cotizaciones">
+            <h2>Cotizaciones</h2>
+            <div id="fecha-update" class="fecha-actualizacion">--/--/--</div>
+        </div>
+
+        <div id="contenedor-banner">
+            <div class="loading">
+                <div class="spinner"></div>
+                Actualizando mercado financiero...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ESTILOS ENCAPSULADOS CON CONFIGURACIÓN DE INTEGRACIÓN SEGURA -->
+<style>
+    #mi-widget-cotizaciones {
+        --bg-tarjeta: #0b1329 !important;       
+        --texto-brillante: #ffffff !important;  
+        --texto-mutado: #5bc0be !important;     
+        --texto-gris: #94a3b8 !important;       
+        --borde-sutil: #1e293b !important;      
+        --rojo-financiero: #ff5a5a !important;  
+        
+        width: 100% !important;
+        max-width: 460px !important;
+        margin: 0 auto !important;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+
+    #mi-widget-cotizaciones .tarjeta-financiera {
+        position: relative !important;
+        background-color: var(--bg-tarjeta) !important;
+        background-image: 
+            linear-gradient(135deg, rgba(11, 19, 41, 0.97), rgba(28, 37, 65, 0.95)), 
+            url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        
+        border-radius: 16px !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid #334155 !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    #mi-widget-cotizaciones .header-cotizaciones {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 20px !important;
+        padding-bottom: 12px !important;
+        padding-left: 8px;
+        border-bottom: 1px solid var(--borde-sutil) !important;
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
+    #mi-widget-cotizaciones .header-cotizaciones h2 {
+        margin: 0 !important;
+        font-size: 20px !important; /* Reemplazado rem por px */
+        color: var(--texto-brillante) !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.3px !important;
+    }
+
+    #mi-widget-cotizaciones .fecha-actualizacion {
+        font-size: 12px !important; /* Reemplazado rem por px */
+        color: var(--texto-brillante) !important;
+        background: #1e293b !important;
+        border: 1px solid #475569 !important;
+        padding: 4px 10px !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    #mi-widget-cotizaciones #contenedor-banner {
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
+    #mi-widget-cotizaciones #contenedor-banner table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        background: transparent !important;
+    }
+
+    /* Ocultar elementos sobrantes */
+    #mi-widget-cotizaciones #head, 
+    #mi-widget-cotizaciones .cotizacion_sitio > tbody > tr > td > div > div:first-child,
+    #mi-widget-cotizaciones .cotizacion_dolar_int tr:first-child,
+    #mi-widget-cotizaciones .dolar_fecha_chica {
+        display: none !important;
+    }
+
+    /* Columnas de Encabezados Generales (Compra y Venta) */
+    #mi-widget-cotizaciones .cotizacion_dolar_int tr:nth-child(2) td {
+        color: var(--texto-mutado) !important;
+        font-size: 11px !important; /* Reemplazado rem por px */
+        text-transform: uppercase !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.8px !important;
+        padding: 0 8px 12px 8px !important;
+        text-align: right !important;
+    }
+
+    /* CABECERA ROJA (TURISTA) */
+    #mi-widget-cotizaciones .cotizacion_dolar_int tr:nth-child(2) td:last-child {
+        color: var(--rojo-financiero) !important;
+    }
+    
+    #mi-widget-cotizaciones .cotizacion_dolar_int tr:nth-child(2) td small {
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        letter-spacing: inherit !important;
+        color: inherit !important; 
+        display: inline !important;
+    }
+
+    #mi-widget-cotizaciones .cotizacion_dolar_int tr:nth-child(2) td.divisa_moneda {
+        visibility: hidden !important;
+    }
+
+    /* Filas de cada Moneda */
+    #mi-widget-cotizaciones .cotizacion_dolar_int tr:not(:nth-child(1)):not(:nth-child(2)) td {
+        padding: 14px 8px !important;
+        border-bottom: 1px solid var(--borde-sutil) !important;
+        background: transparent !important;
+        font-size: 14px !important; /* Reemplazado rem por px */
+    }
+
+    /* Columna de Nombre de Moneda e Icono */
+    #mi-widget-cotizaciones .cotizacion_dolar_int td:first-child {
+        text-align: left !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    #mi-widget-cotizaciones b.divisa_moneda {
+        color: var(--texto-brillante) !important;
+        font-size: 15px !important; /* Reemplazado rem por px */
+        font-weight: 600 !important;
+        text-shadow: none !important;
+    }
+
+    /* Valores numéricos generales (Compra) */
+    #mi-widget-cotizaciones td.dolar_num {
+        color: var(--texto-gris) !important;
+        font-weight: 500 !important;
+        text-shadow: none !important;
+        opacity: 1 !important;
+        text-align: right !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+    }
+
+    /* Columna Venta (Precio de Referencia) */
+    #mi-widget-cotizaciones td.dolar_num:nth-child(3) {
+        color: var(--texto-brillante) !important;
+        font-weight: 700 !important;
+        font-size: 15px !important; /* Reemplazado rem por px */
+    }
+
+    /* VALORES DE LA COLUMNA TURISTA */
+    #mi-widget-cotizaciones td.dolar_num_turista {
+        color: var(--rojo-financiero) !important; 
+        font-weight: 700 !important;
+        text-align: right !important;
+        background: transparent !important; 
+        border: none !important; 
+        border-bottom: 1px solid var(--borde-sutil) !important; 
+        border-radius: 0 !important;
+        padding: 14px 8px !important; 
+        font-size: 15px !important; /* Reemplazado rem por px */
+    }
+
+    /* Ajuste de Sprites de Banderas */
+    #mi-widget-cotizaciones .sprite {
+        background-image: url(https://www.cotizacion-dolar.com.ar/directorio/images4/imagenes-cotizacion-dolar.png) !important;
+        background-repeat: no-repeat !important;
+        display: inline-block !important;
+        float: none !important;
+        margin: 0 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+        border-radius: 2px !important;
+    }
+    #mi-widget-cotizaciones .sprite-United-Statesx24 { width: 24px !important; height: 24px !important; background-position: -47px -89px !important; }
+    #mi-widget-cotizaciones .sprite-European-Unionx24 { width: 24px !important; height: 24px !important; background-position: -81px -47px !important; }
+    #mi-widget-cotizaciones .sprite-Brazilx24 { width: 24px !important; height: 24px !important; background-position: -81px -5px !important; }
+
+    #mi-widget-cotizaciones .loading {
+        text-align: center !important;
+        color: var(--texto-gris) !important;
+        font-size: 13px !important; /* Reemplazado rem por px */
+        padding: 25px 0 !important;
+    }
+</style>
+
+<!-- LÓGICA JAVASCRIPT -->
+<!-- LÓGICA JAVASCRIPT -->
+<script>
+    (async function cargarBannerCotizaciones() {
+        // Apuntamos directamente a la URL de origen a través de corsproxy.io
+        const TIMESTAMP = new Date().getTime();
+        const TARGET_URL = `https://www.cotizacion-dolar.com.ar/recursos-webmaster/promedios/cotizacion-argentina-adaptable.php?v=${TIMESTAMP}`;
+        const PROXY_URL = `https://corsproxy.io/?${encodeURIComponent(TARGET_URL)}`;
+
+        try {
+            const respuesta = await fetch(PROXY_URL, {
+                headers: {
+                    "Cache-Control": "no-cache"
+                }
+            });
+
+            // Convertimos la respuesta a Text usando decodificación ISO-8859-1 (latin1)
+            const buffer = await respuesta.arrayBuffer();
+            const decoder = new TextDecoder('iso-8859-1');
+            const htmlBruto = decoder.decode(buffer);
+
+            const widget = document.getElementById("mi-widget-cotizaciones");
+            const contenedor = widget.querySelector("#contenedor-banner");
+
+            if (htmlBruto) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlBruto, 'text/html');
+
+                const elementoFecha = doc.querySelector('.dolar_fecha_2');
+                if (elementoFecha) {
+                    widget.querySelector('#fecha-update').innerText = elementoFecha.innerText.trim();
+                }
+
+                const estilosOriginales = doc.querySelectorAll('style, link[rel="stylesheet"], script');
+                estilosOriginales.forEach(el => el.remove());
+
+                let htmlLimpio = doc.body.innerHTML.replace(/DÃ³lar/g, 'Dólar');
+                contenedor.innerHTML = htmlLimpio;
+
+                // REEMPLAZO DINÁMICO DE CABECERA: Cambia (+60%) por TURISTA
+                const celdasCabecera = contenedor.querySelectorAll('.cotizacion_dolar_int tr:nth-child(2) td');
+                celdasCabecera.forEach(td => {
+                    if (td.innerHTML.includes('%')) {
+                        td.innerHTML = 'TURISTA';
+                    }
+                });
+
+            } else {
+                contenedor.innerHTML = "<div class='loading'>Error en el formato de datos.</div>";
+            }
+
+        } catch (error) {
+            console.error("Error al cargar cotizaciones:", error);
+            document.querySelector("#mi-widget-cotizaciones #contenedor-banner").innerHTML =
+                "<div class='loading'>Servicio temporalmente no disponible.</div>";
+        }
+    })();
+</script>
