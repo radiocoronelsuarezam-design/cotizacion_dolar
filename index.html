@@ -208,18 +208,18 @@
 </style>
 
 <!-- LÓGICA JAVASCRIPT -->
-<!-- LÓGICA JAVASCRIPT -->
 <script>
     (async function cargarBannerCotizaciones() {
-        // Apuntamos directamente a la URL de origen a través de corsproxy.io
+        // Apuntamos directamente a la versión Raw del Gist sin revisión específica y con timestamp anti-caché
         const TIMESTAMP = new Date().getTime();
-        const TARGET_URL = `https://www.cotizacion-dolar.com.ar/recursos-webmaster/promedios/cotizacion-argentina-adaptable.php?v=${TIMESTAMP}`;
-        const PROXY_URL = `https://corsproxy.io/?${encodeURIComponent(TARGET_URL)}`;
+        const TARGET_URL = `https://gist.githubusercontent.com/radiocoronelsuarezam-design/22d0df54b8943d215d5274112ca982f6/raw/cotizaciones.html?v=${TIMESTAMP}`;
 
         try {
-            const respuesta = await fetch(PROXY_URL, {
+            const respuesta = await fetch(TARGET_URL, {
+                cache: "no-store",
                 headers: {
-                    "Cache-Control": "no-cache"
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache"
                 }
             });
 
