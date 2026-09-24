@@ -210,18 +210,11 @@
 <!-- LÓGICA JAVASCRIPT -->
 <script>
     (async function cargarBannerCotizaciones() {
-        // Apuntamos directamente a la versión Raw del Gist sin revisión específica y con timestamp anti-caché
-        const TIMESTAMP = new Date().getTime();
-        const TARGET_URL = `https://gist.githubusercontent.com/radiocoronelsuarezam-design/22d0df54b8943d215d5274112ca982f6/raw/cotizaciones.html?v=${TIMESTAMP}`;
+        // URL canónica directa a la última versión del Gist
+        const TARGET_URL = "https://gist.githubusercontent.com/radiocoronelsuarezam-design/22d0df54b8943d215d5274112ca982f6/raw/cotizaciones.html";
 
         try {
-            const respuesta = await fetch(TARGET_URL, {
-                cache: "no-store",
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache"
-                }
-            });
+            const respuesta = await fetch(TARGET_URL);
 
             // Convertimos la respuesta a Text usando decodificación ISO-8859-1 (latin1)
             const buffer = await respuesta.arrayBuffer();
